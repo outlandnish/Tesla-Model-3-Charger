@@ -28,35 +28,35 @@
 /** @brief Schedules up to 4 tasks using a timer peripheral */
 class Stm32Scheduler
 {
-   public:
-      /** @brief construct a new scheduler using given timer
-       * @pre Timer clock and NVIC interrupt must be enabled
-       * @param timer Address of timer peripheral to use
-       */
-      Stm32Scheduler(uint32_t timer);
+public:
+  /** @brief construct a new scheduler using given timer
+   * @pre Timer clock and NVIC interrupt must be enabled
+   * @param timer Address of timer peripheral to use
+   */
+  Stm32Scheduler(uint32_t timer);
 
-      /** @brief Add a periodic task, can be called up to 4 times
-       * @param function the task function
-       * @param period The calling period in 100*ms
-       */
-      void AddTask(void (*function)(void), uint16_t period);
+  /** @brief Add a periodic task, can be called up to 4 times
+   * @param function the task function
+   * @param period The calling period in 100*ms
+   */
+  void AddTask(void (*function)(void), uint16_t period);
 
-      /** @brief Run the scheduler, must be called by the scheduler timer ISR */
-      void Run();
+  /** @brief Run the scheduler, must be called by the scheduler timer ISR */
+  void Run();
 
-      /** @brief Return CPU load caused by scheduler tasks
-       * @return load in 0.1%
-       */
-      int GetCpuLoad();
+  /** @brief Return CPU load caused by scheduler tasks
+   * @return load in 0.1%
+   */
+  int GetCpuLoad();
 
-   protected:
-   private:
-      static const enum tim_oc_id ocMap[MAX_TASKS];
-      void (*functions[MAX_TASKS]) (void);
-      uint16_t periods[MAX_TASKS];
-      uint16_t execTicks[MAX_TASKS];
-      uint32_t timer;
-      int nextTask;
+protected:
+private:
+  static const enum tim_oc_id ocMap[MAX_TASKS];
+  void (*functions[MAX_TASKS])(void);
+  uint16_t periods[MAX_TASKS];
+  uint16_t execTicks[MAX_TASKS];
+  uint32_t timer;
+  int nextTask;
 };
 
 #endif // STM32SCHEDULER_H

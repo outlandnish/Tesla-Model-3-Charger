@@ -37,7 +37,7 @@
 
 #define FP_TOFLOAT(a) (((float)a) / FRAC_FAC)
 #define FP_FROMINT(a) ((s32fp)((a) << CST_DIGITS))
-#define FP_TOINT(a)   ((s32fp)((a) >> CST_DIGITS))
+#define FP_TOINT(a) ((s32fp)((a) >> CST_DIGITS))
 #define FP_FROMFLT(a) ((s32fp)((a) * FRAC_FAC))
 
 #define FP_MUL(a, b) (((a) * (b)) >> CST_DIGITS)
@@ -53,10 +53,10 @@ extern "C"
 {
 #endif
 
-char* fp_itoa(char * buf, s32fp a);
-s32fp fp_atoi(const char *str, int fracDigits);
-u32fp fp_sqrt(u32fp rad);
-s32fp fp_ln(unsigned int x);
+  char *fp_itoa(char *buf, s32fp a);
+  s32fp fp_atoi(const char *str, int fracDigits);
+  u32fp fp_sqrt(u32fp rad);
+  s32fp fp_ln(unsigned int x);
 
 #ifdef __cplusplus
 }

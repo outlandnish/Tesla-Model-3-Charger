@@ -24,8 +24,8 @@ extern "C"
 {
 #endif
 
-uint32_t parm_save(void);
-int parm_load(void);
+  uint32_t parm_save(void);
+  int parm_load(void);
 
 #ifdef __cplusplus
 }

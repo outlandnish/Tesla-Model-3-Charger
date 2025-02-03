@@ -19,38 +19,36 @@
 #ifndef LINBUS_H
 #define LINBUS_H
 
-
 class LinBus
 {
-   public:
-      /** Default constructor */
-      LinBus(uint32_t usart, int baudrate);
-      void Request(uint8_t id, uint8_t* data, uint8_t len);
-      bool HasReceived(uint8_t pid, uint8_t requiredLen);
-      uint8_t* GetReceivedBytes() { return &recvBuffer[payloadIndex]; }
+public:
+  /** Default constructor */
+  LinBus(uint32_t usart, int baudrate);
+  void Request(uint8_t id, uint8_t *data, uint8_t len);
+  bool HasReceived(uint8_t pid, uint8_t requiredLen);
+  uint8_t *GetReceivedBytes() { return &recvBuffer[payloadIndex]; }
 
-   protected:
+protected:
+private:
+  struct HwInfo
+  {
+    uint32_t usart;
+    uint8_t dmatx;
+    uint8_t dmarx;
+    uint32_t port;
+    uint16_t pin;
+  };
 
-   private:
-      struct HwInfo
-      {
-         uint32_t usart;
-         uint8_t dmatx;
-         uint8_t dmarx;
-         uint32_t port;
-         uint16_t pin;
-      };
+  static uint8_t Checksum(uint8_t pid, uint8_t *data, int len);
+  static uint8_t Parity(uint8_t id);
 
-      static uint8_t Checksum(uint8_t pid, uint8_t* data, int len);
-      static uint8_t Parity(uint8_t id);
-
-      static const HwInfo hwInfo[];
-      static const int payloadIndex = 3;
-      static const int pidIndex = 2;
-      uint32_t usart;
-      const HwInfo* hw;
-      uint8_t sendBuffer[11];
-      uint8_t recvBuffer[12];
+  static const HwInfo hwInfo[];
+  static const int payloadIndex = 3;
+  static const int pidIndex = 2;
+  uint32_t usart;
+  const HwInfo *hw;
+  uint8_t sendBuffer[11];
+  uint8_t recvBuffer[12];
 };
 
 #endif // LINBUS_H

@@ -25,57 +25,57 @@ class Terminal;
 
 typedef struct
 {
-   char const *cmd;
-   void (*CmdFunc)(Terminal*, char*);
+  char const *cmd;
+  void (*CmdFunc)(Terminal *, char *);
 } TERM_CMD;
 
-class Terminal: public IPutChar
+class Terminal : public IPutChar
 {
 public:
-   Terminal(uint32_t usart, const TERM_CMD* commands, bool remap = false);
-   void SetNodeId(uint8_t id);
-   void Run();
-   void PutChar(char c);
-   bool KeyPressed();
-   void FlushInput();
-   void DisableTxDMA();
-   static Terminal* defaultTerminal;
+  Terminal(uint32_t usart, const TERM_CMD *commands, bool remap = false);
+  void SetNodeId(uint8_t id);
+  void Run();
+  void PutChar(char c);
+  bool KeyPressed();
+  void FlushInput();
+  void DisableTxDMA();
+  static Terminal *defaultTerminal;
 
 private:
-   struct HwInfo
-   {
-      uint32_t usart;
-      uint8_t dmatx;
-      uint8_t dmarx;
-      uint32_t port;
-      uint16_t pin;
-      uint32_t port_re;
-      uint16_t pin_re;
-   };
+  struct HwInfo
+  {
+    uint32_t usart;
+    uint8_t dmatx;
+    uint8_t dmarx;
+    uint32_t port;
+    uint16_t pin;
+    uint32_t port_re;
+    uint16_t pin_re;
+  };
 
-   void ResetDMA();
-   const TERM_CMD *CmdLookup(char *buf);
-   void EnableUart(char* arg);
-   void FastUart(char* arg);
-   void Send(const char *str);
+  void ResetDMA();
+  const TERM_CMD *CmdLookup(char *buf);
+  void EnableUart(char *arg);
+  void FastUart(char *arg);
+  void Send(const char *str);
 
-   static const int bufSize = 128;
-   static const HwInfo hwInfo[];
-   const HwInfo* hw;
-   uint32_t usart;
-   bool remap;
-   const TERM_CMD* termCmds;
-   uint8_t nodeId;
-   bool enabled;
-   bool txDmaEnabled;
-   const TERM_CMD *pCurCmd;
-   int lastIdx;
-   uint8_t curBuf;
-   uint32_t curIdx;
-   bool firstSend;
-   char inBuf[bufSize];
-   char outBuf[2][bufSize]; //double buffering
-   char args[bufSize];
+  static const int bufSize = 128;
+  static const HwInfo hwInfo[];
+  const HwInfo *hw;
+  uint32_t usart;
+  bool remap;
+  const TERM_CMD *termCmds;
+  uint8_t nodeId;
+  bool enabled;
+  bool txDmaEnabled;
+  const TERM_CMD *pCurCmd;
+  int lastIdx;
+  uint8_t curBuf;
+  uint32_t curIdx;
+  bool firstSend;
+  char inBuf[bufSize];
+  char outBuf[2][bufSize]; // double buffering
+  char args[bufSize];
 };
 
 #endif // TERMINAL_H

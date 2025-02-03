@@ -22,52 +22,52 @@
 uint32_t MotorVoltage::boost = 0;
 u32fp MotorVoltage::fac;
 uint32_t MotorVoltage::maxAmp;
-u32fp MotorVoltage::endFrq = 1; //avoid division by 0 when not set
+u32fp MotorVoltage::endFrq = 1; // avoid division by 0 when not set
 
 /** Set 0 Hz boost to overcome winding resistance */
 void MotorVoltage::SetBoost(uint32_t boost /**< amplitude in digit */)
 {
-   MotorVoltage::boost = boost;
-   CalcFac();
+  MotorVoltage::boost = boost;
+  CalcFac();
 }
 
 /** Set frequency where the full amplitude is to be provided */
 void MotorVoltage::SetWeakeningFrq(float frq)
 {
-   endFrq = FP_FROMFLT(frq);
-   CalcFac();
+  endFrq = FP_FROMFLT(frq);
+  CalcFac();
 }
 
 /** Get amplitude for a given frequency */
 uint32_t MotorVoltage::GetAmp(u32fp frq)
 {
-   return MotorVoltage::GetAmpPerc(frq, FP_FROMINT(100));
+  return MotorVoltage::GetAmpPerc(frq, FP_FROMINT(100));
 }
 
 /** Get amplitude for given frequency multiplied with given percentage */
 uint32_t MotorVoltage::GetAmpPerc(u32fp frq, u32fp perc)
 {
-   uint32_t amp = FP_MUL(perc, (FP_TOINT(FP_MUL(fac, frq)) + boost)) / 100;
-   if (frq < FP_FROMFLT(0.2))
-   {
-      amp = 0;
-   }
-   if (amp > maxAmp)
-   {
-      amp = maxAmp;
-   }
+  uint32_t amp = FP_MUL(perc, (FP_TOINT(FP_MUL(fac, frq)) + boost)) / 100;
+  if (frq < FP_FROMFLT(0.2))
+  {
+    amp = 0;
+  }
+  if (amp > maxAmp)
+  {
+    amp = maxAmp;
+  }
 
-   return amp;
+  return amp;
 }
 
 void MotorVoltage::SetMaxAmp(uint32_t maxAmp)
 {
-   MotorVoltage::maxAmp = maxAmp;
-   CalcFac();
+  MotorVoltage::maxAmp = maxAmp;
+  CalcFac();
 }
 
 /** Calculate slope of u/f */
 void MotorVoltage::CalcFac()
 {
-   fac = FP_DIV(FP_FROMINT(maxAmp - boost), endFrq);
+  fac = FP_DIV(FP_FROMINT(maxAmp - boost), endFrq);
 }

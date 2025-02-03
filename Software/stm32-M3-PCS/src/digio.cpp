@@ -21,7 +21,7 @@
 #include "digio.h"
 
 #define DIG_IO_OFF 0
-#define DIG_IO_ON  1
+#define DIG_IO_ON 1
 
 #undef DIG_IO_ENTRY
 #define DIG_IO_ENTRY(name, port, pin, mode) DigIo DigIo::name;
@@ -29,43 +29,42 @@ DIG_IO_LIST
 
 void DigIo::Configure(uint32_t port, uint16_t pin, PinMode::PinMode pinMode)
 {
-   uint8_t mode = GPIO_MODE_INPUT;
-   uint8_t cnf = GPIO_CNF_INPUT_PULL_UPDOWN;
-   uint16_t val = DIG_IO_OFF;
+  uint8_t mode = GPIO_MODE_INPUT;
+  uint8_t cnf = GPIO_CNF_INPUT_PULL_UPDOWN;
+  uint16_t val = DIG_IO_OFF;
 
-   _port = port;
-   _pin = pin;
+  _port = port;
+  _pin = pin;
 
-   switch (pinMode)
-   {
-      default:
-      case PinMode::INPUT_PD:
-         /* use defaults */
-         break;
-      case PinMode::INPUT_PU:
-         val = DIG_IO_ON;
-         break;
-      case PinMode::INPUT_FLT:
-         cnf = GPIO_CNF_INPUT_FLOAT;
-         break;
-      case PinMode::INPUT_AIN:
-         cnf = GPIO_CNF_INPUT_ANALOG;
-         break;
-      case PinMode::OUTPUT:
-         mode = GPIO_MODE_OUTPUT_50_MHZ;
-         cnf = GPIO_CNF_OUTPUT_PUSHPULL;
-         break;
-      case PinMode::OUTPUT_OD:
-         mode = GPIO_MODE_OUTPUT_50_MHZ;
-         cnf = GPIO_CNF_OUTPUT_OPENDRAIN;
-         val = DIG_IO_ON;
-         break;
-   }
+  switch (pinMode)
+  {
+  default:
+  case PinMode::INPUT_PD:
+    /* use defaults */
+    break;
+  case PinMode::INPUT_PU:
+    val = DIG_IO_ON;
+    break;
+  case PinMode::INPUT_FLT:
+    cnf = GPIO_CNF_INPUT_FLOAT;
+    break;
+  case PinMode::INPUT_AIN:
+    cnf = GPIO_CNF_INPUT_ANALOG;
+    break;
+  case PinMode::OUTPUT:
+    mode = GPIO_MODE_OUTPUT_50_MHZ;
+    cnf = GPIO_CNF_OUTPUT_PUSHPULL;
+    break;
+  case PinMode::OUTPUT_OD:
+    mode = GPIO_MODE_OUTPUT_50_MHZ;
+    cnf = GPIO_CNF_OUTPUT_OPENDRAIN;
+    val = DIG_IO_ON;
+    break;
+  }
 
-   if (DIG_IO_ON == val)
-   {
-      gpio_set(port, pin);
-   }
-   gpio_set_mode(port, mode, cnf, pin);
+  if (DIG_IO_ON == val)
+  {
+    gpio_set(port, pin);
+  }
+  gpio_set_mode(port, mode, cnf, pin);
 }
-

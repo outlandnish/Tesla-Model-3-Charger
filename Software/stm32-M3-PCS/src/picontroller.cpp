@@ -20,34 +20,34 @@
 #include "my_math.h"
 
 PiController::PiController()
- : kp(0), ki(0), esum(0), refVal(0), frequency(1), maxY(0), minY(0)
+    : kp(0), ki(0), esum(0), refVal(0), frequency(1), maxY(0), minY(0)
 {
 }
 
 int32_t PiController::Run(s32fp curVal)
 {
-   s32fp err = refVal - curVal;
-   s32fp esumTemp = esum + err;
+  s32fp err = refVal - curVal;
+  s32fp esumTemp = esum + err;
 
-   int32_t y = FP_TOINT(err * kp + (esumTemp / frequency) * ki);
-   int32_t ylim = MAX(y, minY);
-   ylim = MIN(ylim, maxY);
+  int32_t y = FP_TOINT(err * kp + (esumTemp / frequency) * ki);
+  int32_t ylim = MAX(y, minY);
+  ylim = MIN(ylim, maxY);
 
-   if (ylim == y)
-   {
-      esum = esumTemp; //anti windup, only integrate when not saturated
-   }
+  if (ylim == y)
+  {
+    esum = esumTemp; // anti windup, only integrate when not saturated
+  }
 
-   return ylim;
+  return ylim;
 }
 
 int32_t PiController::RunProportionalOnly(s32fp curVal)
 {
-   s32fp err = refVal - curVal;
+  s32fp err = refVal - curVal;
 
-   int32_t y = FP_TOINT(err * kp);
-   int32_t ylim = MAX(y, minY);
-   ylim = MIN(ylim, maxY);
+  int32_t y = FP_TOINT(err * kp);
+  int32_t ylim = MAX(y, minY);
+  ylim = MIN(ylim, maxY);
 
-   return ylim;
+  return ylim;
 }

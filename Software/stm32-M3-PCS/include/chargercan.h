@@ -22,12 +22,11 @@
 
 class ChargerCAN
 {
-   public:
-      static void MapMessages(Can* can);
+public:
+  static void MapMessages(Can *can);
 
-   protected:
-
-   private:
+protected:
+private:
 };
 
 #endif // CHARGERCAN_H

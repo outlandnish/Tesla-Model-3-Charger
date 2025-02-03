@@ -25,38 +25,39 @@
 #define ERROR_MESSAGE_ENTRY(id, type) ERR_##id,
 typedef enum
 {
-   ERROR_NONE,
-   ERROR_MESSAGE_LIST
-   ERROR_MESSAGE_LAST
+  ERROR_NONE,
+  ERROR_MESSAGE_LIST
+      ERROR_MESSAGE_LAST
 } ERROR_MESSAGE_NUM;
 #undef ERROR_MESSAGE_ENTRY
 
 typedef enum
 {
-   ERROR_STOP,
-   ERROR_DERATE,
-   ERROR_DISPLAY,
-   ERROR_LAST
+  ERROR_STOP,
+  ERROR_DERATE,
+  ERROR_DISPLAY,
+  ERROR_LAST
 } ERROR_TYPE;
 
 class ErrorMessage
 {
-   public:
-      static void SetTime(uint32_t time);
-      static void Post(ERROR_MESSAGE_NUM err);
-      static void UnpostAll();
-      static void PrintAllErrors();
-      static void PrintNewErrors();
-      static ERROR_MESSAGE_NUM GetLastError();
-   protected:
-   private:
-      static void PrintError(uint32_t time, ERROR_MESSAGE_NUM err);
+public:
+  static void SetTime(uint32_t time);
+  static void Post(ERROR_MESSAGE_NUM err);
+  static void UnpostAll();
+  static void PrintAllErrors();
+  static void PrintNewErrors();
+  static ERROR_MESSAGE_NUM GetLastError();
 
-      static uint32_t timeTick;
-      static uint32_t currentBufIdx;
-      static uint32_t lastPrintIdx;
-      static bool posted[ERROR_MESSAGE_LAST];
-      static ERROR_MESSAGE_NUM lastError;
+protected:
+private:
+  static void PrintError(uint32_t time, ERROR_MESSAGE_NUM err);
+
+  static uint32_t timeTick;
+  static uint32_t currentBufIdx;
+  static uint32_t lastPrintIdx;
+  static bool posted[ERROR_MESSAGE_LAST];
+  static ERROR_MESSAGE_NUM lastError;
 };
 
 #endif // ERRORMESSAGE_H

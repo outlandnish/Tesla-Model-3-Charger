@@ -20,27 +20,26 @@
 #define STM32_LOADER_H_INCLUDED
 #include <stdint.h>
 
-#define PINDEF_BLKNUM    3  //3rd to last flash page
-#define PINDEF_BLKSIZE   1024
+#define PINDEF_BLKNUM 3 // 3rd to last flash page
+#define PINDEF_BLKSIZE 1024
 #define NUM_PIN_COMMANDS 10
 #define PIN_IN 0
 #define PIN_OUT 1
 
 struct pindef
 {
-   uint32_t port;
-   uint16_t pin;
-   uint8_t inout;
-   uint8_t level;
+  uint32_t port;
+  uint16_t pin;
+  uint8_t inout;
+  uint8_t level;
 };
 
 struct pincommands
 {
-   struct pindef pindef[NUM_PIN_COMMANDS];
-   uint32_t crc;
+  struct pindef pindef[NUM_PIN_COMMANDS];
+  uint32_t crc;
 };
 
 #define PINDEF_NUMWORDS (sizeof(struct pindef) * NUM_PIN_COMMANDS / 4)
-
 
 #endif // STM32_LOADER_H_INCLUDED

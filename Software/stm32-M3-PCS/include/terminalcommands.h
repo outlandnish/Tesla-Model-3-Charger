@@ -19,24 +19,22 @@
 #ifndef TERMINALCOMMANDS_H
 #define TERMINALCOMMANDS_H
 
-
 class TerminalCommands
 {
-   public:
-      static void ParamSet(Terminal* term, char* arg);
-      static void ParamGet(Terminal* term, char *arg);
-      static void ParamFlag(Terminal* term, char *arg);
-      static void ParamStream(Terminal* term, char *arg);
-      static void PrintParamsJson(Terminal* term, char *arg);
-      static void MapCan(Terminal* term, char *arg);
-      static void SaveParameters(Terminal* term, char *arg);
-      static void LoadParameters(Terminal* term, char *arg);
-      static void Reset(Terminal* term, char *arg);
+public:
+  static void ParamSet(Terminal *term, char *arg);
+  static void ParamGet(Terminal *term, char *arg);
+  static void ParamFlag(Terminal *term, char *arg);
+  static void ParamStream(Terminal *term, char *arg);
+  static void PrintParamsJson(Terminal *term, char *arg);
+  static void MapCan(Terminal *term, char *arg);
+  static void SaveParameters(Terminal *term, char *arg);
+  static void LoadParameters(Terminal *term, char *arg);
+  static void Reset(Terminal *term, char *arg);
 
-   protected:
-
-   private:
-      static void PrintCanMap(Param::PARAM_NUM param, uint32_t canid, uint8_t offset, uint8_t length, float gain, bool rx);
+protected:
+private:
+  static void PrintCanMap(Param::PARAM_NUM param, uint32_t canid, uint8_t offset, uint8_t length, float gain, bool rx);
 };
 
 #endif // TERMINALCOMMANDS_H

@@ -39,14 +39,14 @@ extern const uint8_t crc_table[256];
  *
  * \return Calculated CRC value
  */
-inline uint8_t crc8(uint8_t* p, uint8_t len, uint8_t crc)
+inline uint8_t crc8(uint8_t *p, uint8_t len, uint8_t crc)
 {
-    while (len--)
-    {
-        crc = crc_table[crc ^ *p++];
-    }
+  while (len--)
+  {
+    crc = crc_table[crc ^ *p++];
+  }
 
-    return crc;
+  return crc;
 }
 
 /**
@@ -62,9 +62,9 @@ inline uint8_t crc8(uint8_t* p, uint8_t len, uint8_t crc)
  */
 inline uint8_t crc8(uint8_t input, uint8_t crc)
 {
-    crc = crc_table[crc ^ input];
+  crc = crc_table[crc ^ input];
 
-    return crc;
+  return crc;
 }
 
 #endif /* __CRC8_H_ */

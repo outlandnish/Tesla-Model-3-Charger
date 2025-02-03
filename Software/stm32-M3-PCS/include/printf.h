@@ -28,13 +28,11 @@
 class IPutChar
 {
 public:
-   virtual void PutChar(char c) = 0;
+  virtual void PutChar(char c) = 0;
 };
-
 
 int printf(const char *format, ...);
 int sprintf(char *out, const char *format, ...);
-int fprintf(IPutChar* put, const char *format, ...);
-
+int fprintf(IPutChar *put, const char *format, ...);
 
 #endif // PRINTF_H_INCLUDED
